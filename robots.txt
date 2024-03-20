@@ -1,0 +1,6 @@
+User-agent: *
+User-agent: googlebot
+User-agent: googlebot
+Disallow: /cgi-bin
+Crawl-delay: 1
+
