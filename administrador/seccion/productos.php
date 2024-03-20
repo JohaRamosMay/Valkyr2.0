@@ -1,13 +1,18 @@
 <?php include('../template/header.php'); ?>
 
-<?php
 
-$textID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
-$textnombre = (isset($_POST['txtnombre'])) ? $_POST['txtnombre'] : "";
-$textdescripcion = (isset($_POST['txtdescripcion'])) ? $_POST['txtdescripcion'] : "";
-$textprecio = (isset($_POST['txtprecio'])) ? $_POST['txtprecio'] : "";
-$textimagen = (isset($_FILES['txtimagen']['name'])) ? $_FILES['txtimagen']['name'] : "";
-$accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
+
+<?php
+function obtenerCampo($campo, $valorPredeterminado = '') {
+    return isset($_POST[$campo]) ? $_POST[$campo] : $valorPredeterminado;
+}
+
+$textID = obtenerCampo('txtID');
+$textnombre = obtenerCampo('txtnombre');
+$textdescripcion = obtenerCampo('txtdescripcion');
+$textprecio = obtenerCampo('txtprecio');
+$textimagen = obtenerCampo('txtimagen', '');
+$accion = obtenerCampo('accion', '');
 
 
 include('../config/db.php');

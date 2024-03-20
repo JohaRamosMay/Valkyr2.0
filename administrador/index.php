@@ -1,19 +1,27 @@
 <?php 
-  session_start();
+session_start();
 
-  if($_POST){
-      if($_POST ['usuario'] == 'valkyriafundas' && $_POST['password'] == '12345'){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usuario = $_POST['usuario'];
+    $password = $_POST['password'];
 
+    // Hash de la contraseña almacenada en la base de datos
+    $hash_password_guardado = password_hash('12345', PASSWORD_DEFAULT);
+
+    $hash_password_usuario = ($usuario == 'valkyriafundas') ? $hash_password_guardado : null;
+
+    if ($hash_password_usuario && password_verify($password, $hash_password_usuario)) {
+        // Inicio de sesión exitoso
         $_SESSION['usuario'] = 'ok';
         $_SESSION['nombreUsuario'] = 'valkyriafundas';
         header("Location:inicio.php");
-
-      }else{
+        exit();
+    } else {
         $mensaje = "Error: El usuario o contraseña son incorrectos";
-      }
+    }
+}
+?>
 
-
-  }
 
 
 ?>
@@ -29,11 +37,9 @@
 <html lang="en">
   <head>
     <title>Administrador</title>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
